@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
 using System;
+using Helper;
 
 public static class AssetDownloader
 {
@@ -36,7 +37,7 @@ public static class AssetDownloader
     /// </summary>
     /// <param name="url">The URL of the image to download</param>
     /// <returns>Returns the downloaded bytes of the image file</returns>
-    public static async Task<byte[]> DownloadImageAsync(string url)
+    public static async Task<Texture2D> DownloadImageAsync(string url)
     {
         try
         {
@@ -48,8 +49,15 @@ public static class AssetDownloader
                 return null;
             }
 
+            Texture2D texture = new Texture2D(2, 2);
+            if (!texture.LoadImage(imageData))
+            {
+                Debug.LogError($"Failed to convert image data to texture from URL: {url}");
+                return null;
+            }
+
             Debug.Log($"Successfully downloaded image from URL: {url}");
-            return imageData;
+            return texture;
         }
         catch (Exception ex)
         {
