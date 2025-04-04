@@ -1,10 +1,9 @@
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using Models;
-using Helper;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
+using UnityEngine.XR.Interaction.Toolkit.Samples.ARStarterAssets;
 
 public class AppManager : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class AppManager : MonoBehaviour
     public UIManager uIManager;
     public List<ItemMetadata> ItemsMetadataList { get; private set; }
 
+public ObjectSpawner objectSpawner;
+public ARInteractorSpawnTrigger arInteractorSpawnTrigger;
 
     #endregion
 

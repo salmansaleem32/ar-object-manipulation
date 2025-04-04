@@ -14,11 +14,11 @@ public static class AssetDownloader
     /// </summary>
     /// <param name="url">The URL of the 3D model to download</param>
     /// <returns>Returns the downloaded bytes of the 3D model file</returns>
-    public static async Task<GameObject> DownloadGlBModel(string url)
+    public static async Task<GltfImport> DownloadGlBModel(string url)
     {
         try
         {
-            byte[] modelData = await HelperFunctions.Download3DModelAsync(url);
+            byte[] modelData = await HelperFunctions.DownloadFileAsync(url);
             
             if (modelData == null || modelData.Length == 0)
             {
@@ -41,21 +41,21 @@ public static class AssetDownloader
             }
 
             // Create a container GameObject
-            GameObject root = new GameObject("GLB_Model");
-            success = await gltf.InstantiateMainSceneAsync(root.transform);
+            // GameObject root = new GameObject("GLB_Model");
+            // success = await gltf.InstantiateMainSceneAsync(root.transform);
 
-            if (!success)
-            {
-                GameObject.Destroy(root);
-                Debug.LogError($"Failed to instantiate GLB model from URL: {url}");
-                return null;
-            }
+            // if (!success)
+            // {
+            //     GameObject.Destroy(root);
+            //     Debug.LogError($"Failed to instantiate GLB model from URL: {url}");
+            //     return null;
+            // }
 
             // Clean up temporary file
             File.Delete(tempPath);
 
             Debug.Log($"Successfully downloaded and converted GLB model from URL: {url}");
-            return root;
+            return gltf;
         }
         catch (Exception ex)
         {

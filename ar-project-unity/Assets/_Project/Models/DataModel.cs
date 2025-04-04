@@ -1,3 +1,4 @@
+using GLTFast;
 using UnityEngine;
 
 namespace Models
@@ -9,15 +10,15 @@ namespace Models
         public string name;
 
         public Texture2D image;
-        public GameObject model;
+        public GltfImport model;
 
         public void SetTexture (Texture2D texture)
         {
             image = texture;
         }
-        public void SetModel (GameObject modelPrefab)
+        public void SetModel (GltfImport modelImport)
         {
-            model = modelPrefab;
+            model = modelImport;
         }
     }
 }

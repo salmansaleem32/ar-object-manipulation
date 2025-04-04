@@ -31,51 +31,30 @@ namespace Helper
         }
 
         public static async Task<Texture2D> DownloadImageAsync(string url)
-    {
-        try
-        {
-            byte[] imageData = await HelperFunctions.DownloadFileAsync(url);
-            
-            if (imageData == null || imageData.Length == 0)
-            {
-                Debug.LogError($"Failed to download image from URL: {url}");
-                return null;
-            }
-
-            Texture2D texture = new Texture2D(2, 2);
-            if (!texture.LoadImage(imageData))
-            {
-                Debug.LogError($"Failed to convert image data to texture from URL: {url}");
-                return null;
-            }
-
-            Debug.Log($"Successfully downloaded image from URL: {url}");
-            return texture;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error downloading image: {ex.Message}");
-            return null;
-        }
-    }
-
-        public static async Task<byte[]> Download3DModelAsync(string url)
         {
             try
             {
-                byte[] modelData = await HelperFunctions.DownloadFileAsync(url);
-                
-                if (modelData == null || modelData.Length == 0)
+                byte[] imageData = await HelperFunctions.DownloadFileAsync(url);
+
+                if (imageData == null || imageData.Length == 0)
                 {
-                    Debug.LogError($"Failed to download 3D model from URL: {url}");
+                    Debug.LogError($"Failed to download image from URL: {url}");
                     return null;
                 }
 
-                return modelData;
+                Texture2D texture = new Texture2D(2, 2);
+                if (!texture.LoadImage(imageData))
+                {
+                    Debug.LogError($"Failed to convert image data to texture from URL: {url}");
+                    return null;
+                }
+
+                Debug.Log($"Successfully downloaded image from URL: {url}");
+                return texture;
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Error downloading 3D model: {ex.Message}");
+                Debug.LogError($"Error downloading image: {ex.Message}");
                 return null;
             }
         }
