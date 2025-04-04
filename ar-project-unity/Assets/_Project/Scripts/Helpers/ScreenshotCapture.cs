@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
-using NativeShare.Scripts;
+using Core;
 
 public static class ScreenshotCapture
 {
@@ -42,7 +42,5 @@ public static class ScreenshotCapture
 
         // Implement sharing functionality here, e.g., using NativeShare or any other sharing library
         Debug.Log($"Sharing screenshot: {filePath}");
-        NativeShare.Share("Check out this screenshot!", "", filePath, "");
-
     }
 }

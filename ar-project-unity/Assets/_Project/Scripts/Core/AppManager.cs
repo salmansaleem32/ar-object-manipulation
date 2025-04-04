@@ -4,39 +4,42 @@ using System.Linq;
 using Models;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using UnityEngine.XR.Interaction.Toolkit.Samples.ARStarterAssets;
+using System.Threading.Tasks;
 
-public class AppManager : MonoBehaviour
+namespace Core
 {
-    #region Variables and Declarations
-    private static AppManager instance;
-    public UIManager uIManager;
-    public List<ItemMetadata> ItemsMetadataList { get; private set; }
-
-public ObjectSpawner objectSpawner;
-public ARInteractorSpawnTrigger arInteractorSpawnTrigger;
-
-    #endregion
-
-#region Properties and Dictionaries
-
-   public static AppManager Instance
+    public class AppManager : MonoBehaviour
     {
-        get
+        #region Variables and Declarations
+        private static AppManager instance;
+        public UIManager uIManager;
+        public List<ItemMetadata> ItemsMetadataList { get; private set; }
+
+        public ObjectSpawner objectSpawner;
+        public ARInteractorSpawnTrigger arInteractorSpawnTrigger;
+
+        #endregion
+
+        #region Properties and Dictionaries
+
+        public static AppManager Instance
         {
-            if (instance == null)
+            get
             {
-                instance = Object.FindFirstObjectByType<AppManager>(); // Updated method
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject("AppManager");
-                    instance = obj.AddComponent<AppManager>();
+                    instance = Object.FindFirstObjectByType<AppManager>(); // Updated method
+                    if (instance == null)
+                    {
+                        GameObject obj = new GameObject("AppManager");
+                        instance = obj.AddComponent<AppManager>();
+                    }
                 }
+                return instance;
             }
-            return instance;
         }
-    }
 
-    private readonly Dictionary<string, string> modelsUrls = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> modelsUrls = new Dictionary<string, string>()
     {
         { "Avocado", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Avocado/glTF-Binary/Avocado.glb" },
         { "Buggy", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Buggy/glTF-Binary/Buggy.glb" },
@@ -45,7 +48,7 @@ public ARInteractorSpawnTrigger arInteractorSpawnTrigger;
         { "SheenChair", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb" }
     };
 
-    private readonly Dictionary<string, string> imageUrls = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> imageUrls = new Dictionary<string, string>()
     {
         { "Avocado", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Avocado/screenshot/screenshot.jpg" },
         { "Buggy", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Buggy/screenshot/screenshot.png" },
@@ -54,55 +57,62 @@ public ARInteractorSpawnTrigger arInteractorSpawnTrigger;
         { "SheenChair", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/screenshot/screenshot.jpg" }
     };
 
-#endregion
+        #endregion
 
- 
-    void Awake()
-    {
-        if (instance != null && instance != this)
+
+        void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-        // Initialize the app when it starts
-        InitializeApp();
-    }
+        void Start()
+        {
+            // Initialize the app when it starts
+            InitializeApp();
+        }
 
 
-    private void InitializeApp()
-    {
-        Debug.Log("App Initialized");
-        // Add initialization logic here
+        private async Task InitializeApp()
+        {
+            Debug.Log("App Initialized");
+            // Add initialization logic here
 
-        ItemsMetadataList = modelsUrls.Keys
-            .Select(key => new ItemMetadata 
-            { 
-                name = key,
-                imageUrl = imageUrls[key],
-                modelUrl = modelsUrls[key]
-            })
-            .ToList();
+            ItemsMetadataList = modelsUrls.Keys
+                .Select(key => new ItemMetadata
+                {
+                    name = key,
+                    imageUrl = imageUrls[key],
+                    modelUrl = modelsUrls[key]
+                })
+                .ToList();
 
             uIManager = FindFirstObjectByType<UIManager>();
+            await DownloadAssets (ItemsMetadataList);
             uIManager.Initialise();
-    }
+        }
 
+        private async Task DownloadAssets(List<ItemMetadata> itemsMetadataList)
+        {
+            await AssetDownloader.DownloadImages(AppManager.Instance.ItemsMetadataList);
+            await AssetDownloader.Download3DModels(AppManager.Instance.ItemsMetadataList);
+        }
 
-    void OnApplicationQuit()
-    {
-        CleanupApp();
-    }
+        void OnApplicationQuit()
+        {
+            CleanupApp();
+        }
 
-    private void CleanupApp()
-    {
-        Debug.Log("App Cleanup");
-        // Add cleanup logic here
+        private void CleanupApp()
+        {
+            Debug.Log("App Cleanup");
+            // Add cleanup logic here
+        }
     }
 }

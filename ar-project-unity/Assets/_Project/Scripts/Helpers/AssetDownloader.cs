@@ -6,6 +6,7 @@ using System.IO;
 using GLTFast;
 using Models;
 using System.Collections.Generic;
+using Core;
 
 public static class AssetDownloader
 {

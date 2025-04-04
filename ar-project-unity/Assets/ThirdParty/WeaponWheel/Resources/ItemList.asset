@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ItemList
+  m_EditorClassIdentifier: Assembly-CSharp::ItemList
+  items:
+  - itemName: Bomb
+    image: {fileID: 21300000, guid: 6224c9d1a503c424eaa80048d1419332, type: 3}
+  - itemName: Dynamite
+    image: {fileID: 21300000, guid: 03ac36e41bad30a4fa848b541902be91, type: 3}
+  - itemName: Shield
+    image: {fileID: 21300000, guid: e048345c2f94b61478570d19244dc063, type: 3}
+  - itemName: Food Can
+    image: {fileID: 21300000, guid: 74187623221434640a5e1b52b9a0417c, type: 3}
+  - itemName: Health
+    image: {fileID: 21300000, guid: e73c0ed8f8fccb34686620cd9fed97d2, type: 3}
+  - itemName: Potion
+    image: {fileID: 21300000, guid: 61e19c9b658f97743b8f8ecb48e964a9, type: 3}
+  - itemName: Spell
+    image: {fileID: 21300000, guid: d1bf09267ccd08f4ea32285a7ed4219e, type: 3}
+  - itemName: Sword
+    image: {fileID: 21300000, guid: ffb4dfa0a488b7644b1935ffb080ae5b, type: 3}

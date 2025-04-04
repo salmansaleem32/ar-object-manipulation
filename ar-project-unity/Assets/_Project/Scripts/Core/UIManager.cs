@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
+using Core;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private WheelManager objectWheel;
 
     [SerializeField] private List<Button> objectButtons;
     [SerializeField] private Button shareButton;
@@ -16,7 +19,6 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("UIManager Initialised");
 
-        await AssetDownloader.DownloadImages(AppManager.Instance.ItemsMetadataList);
 
         foreach (var item in AppManager.Instance.ItemsMetadataList)
         {
@@ -32,26 +34,44 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-        shareButton.onClick.AddListener(OnClickShareButton);
+        _objectSpawner = FindObjectsByType<ObjectSpawner>(FindObjectsSortMode.None)[0];
 
-        await AssetDownloader.Download3DModels(AppManager.Instance.ItemsMetadataList);
-        _objectSpawner = AppManager.Instance.objectSpawner;
+        AssignObjectsToObjectSpawnner();
     }
 
-    private async void OnButtonClick (string objectKey)
+    private async void AssignObjectsToObjectSpawnner()
     {
-        var modelToInstantiate = AppManager.Instance.ItemsMetadataList.Find(x => x.name == objectKey).model;
-        
-        
-         // Create a container GameObject
+        var modelList = AppManager.Instance.ItemsMetadataList.Select(x => x.model).ToList();
+        List<GameObject> objectsList = new List<GameObject>();
+        foreach (var modelToInstantiate in modelList)
+        {
+            // Create a container GameObject
             GameObject root = new GameObject("objectKey");
             bool success = await modelToInstantiate.InstantiateMainSceneAsync(root.transform);
 
-            if (!success)
+            if (success)
             {
-                GameObject.Destroy(root);
-                Debug.LogError($"Failed to instantiate GLB model from URL: {objectKey}");
+                objectsList.Add(root);
             }
+        }
+
+        _objectSpawner.objectPrefabs = objectsList;
+    }
+
+    private async void OnButtonClick(string objectKey)
+    {
+        var modelToInstantiate = AppManager.Instance.ItemsMetadataList.Find(x => x.name == objectKey).model;
+
+
+        // Create a container GameObject
+        GameObject root = new GameObject("objectKey");
+        bool success = await modelToInstantiate.InstantiateMainSceneAsync(root.transform);
+
+        if (!success)
+        {
+            GameObject.Destroy(root);
+            Debug.LogError($"Failed to instantiate GLB model from URL: {objectKey}");
+        }
     }
 
     private void OnClickShareButton()
@@ -59,5 +79,10 @@ public class UIManager : MonoBehaviour
         // Implement share functionality here
         Debug.Log("Share button clicked!");
     }
-    
+
+    public void ToggleObjectWheel(bool activate)
+    {
+        objectWheel.ToggleWheel(activate);
+    }
+
 }
