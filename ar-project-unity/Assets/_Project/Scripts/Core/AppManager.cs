@@ -37,20 +37,20 @@ public class AppManager : MonoBehaviour
 
     private readonly Dictionary<string, string> modelsUrls = new Dictionary<string, string>()
     {
-        { "Avocado", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/Avocado/glTF-Binary/Avocado.glb" },
-        { "Buggy", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/Buggy/glTF-Binary/Buggy.glb" },
-        { "DamagedHelmet", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb" },
-        { "Duck", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/Duck/glTF-Binary/Duck.glb" },
-        { "SheenChair", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/SheenChair/glTF-Binary/SheenChair.glb" }
+        { "Avocado", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Avocado/glTF-Binary/Avocado.glb" },
+        { "Buggy", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Buggy/glTF-Binary/Buggy.glb" },
+        { "DamagedHelmet", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb" },
+        { "Duck", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Duck/glTF-Binary/Duck.glb" },
+        { "SheenChair", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb" }
     };
 
     private readonly Dictionary<string, string> imageUrls = new Dictionary<string, string>()
     {
-        { "Avocado", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/Avocado/screenshot/screenshot.jpg" },
-        { "Buggy", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/Buggy/screenshot/screenshot.png" },
-        { "DamagedHelmet", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/DamagedHelmet/screenshot/screenshot.png" },
-        { "Duck", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/Duck/screenshot/screenshot.png" },
-        { "SheenChair", "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/SheenChair/screenshot/screenshot.jpg" }
+        { "Avocado", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Avocado/screenshot/screenshot.jpg" },
+        { "Buggy", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Buggy/screenshot/screenshot.png" },
+        { "DamagedHelmet", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/DamagedHelmet/screenshot/screenshot.png" },
+        { "Duck", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Duck/screenshot/screenshot.png" },
+        { "SheenChair", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/screenshot/screenshot.jpg" }
     };
 
 #endregion

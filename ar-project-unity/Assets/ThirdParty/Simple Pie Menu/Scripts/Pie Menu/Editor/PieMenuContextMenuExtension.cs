@@ -67,7 +67,7 @@ namespace SimplePieMenu
         private static void ManageEventSystem()
         {
             // Check if EventSystem already exists in the scene
-            if (FindObjectOfType<EventSystem>() == null)
+            if (FindAnyObjectByType<EventSystem>() == null)
             {
                 // If it doesn't exist, create a new EventSystem and add it to the scene
                 GameObject eventSystemObject = new("EventSystem");

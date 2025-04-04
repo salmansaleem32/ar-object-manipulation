@@ -1,37 +1,15 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    internal void Initialise()
+    internal async void Initialise()
     {
-        DownloadImages();
-    }
+        Debug.Log("UIManager Initialised");
 
-    private async Task DownloadImages()
-    {
-        foreach (var item in AppManager.Instance.ItemsMetadataList)
-        {
-            string imageUrl = item.imageUrl;
-            if (!string.IsNullOrEmpty(imageUrl))
-            {
-                var texture = await AssetDownloader.DownloadImageAsync(imageUrl);
-
-                if (texture != null)
-                {
-                    item.SetTexture(texture); // Update the original item in the list
-                    Debug.Log($"Image downloaded and assigned for {item.name}");
-                }
-                else
-                {
-                    Debug.LogError($"Failed to download image for {item.name}");
-                }
-            }
-            else
-            {
-                Debug.LogError($"Image URL not found for {item.name}");
-            }
-        }
+        // await AssetDownloader.DownloadImages(AppManager.Instance.ItemsMetadataList);
+        // await AssetDownloader.Download3DModels(AppManager.Instance.ItemsMetadataList);
     }
 }
